@@ -17,17 +17,36 @@ const displayWords = (words) => {
   const wordsContainer = document.getElementById("words-container");
   wordsContainer.innerHTML = "";
   wordsContainer.classList.replace("p-20", "p-5");
+  if (words.length == 0) {
+    wordsContainer.innerHTML = `
+    <div class="mx-auto col-span-3 space-x-3">
+        <img class="mx-auto" src="./assets/alert-error.png" />
+        <h3 class="text-[#79716b] text-[14px] mb-2 font-bangla">এই Lesson এ এখনো কোন Vocabulary যুক্ত করা হয়নি।</h3>
+        <h1 class="text-[#292524] text-4xl font-medium font-bangla">নেক্সট Lesson এ যান</h1>
+    </div>
+    `;
+    return;
+  }
+
   wordsContainer.classList.add("grid", "grid-cols-3", "gap-5");
   words.forEach((word) => {
     console.log(word);
     const card = document.createElement("div");
     card.innerHTML = `
-        <div class="card bg-white rounded-sm p-10">
+        <div class="card bg-white rounded-sm p-10 h-full">
             <div>
-                <h1 class="text-3xl font-bold">${word.word}</h1>
+                <h1 class="text-3xl font-bold">${
+                  word.word ? word.word : "শব্দ পাওয়া যায়নি"
+                }</h1>
                 <p class="text-xl font-medium my-4">Meaning /Pronounciation</p>
-                <p class="font-bangla text-[#18181B] text-3xl font-semibold mb-10">"${word.meaning} /
-                    ${word.pronunciation}"
+                <p class="font-bangla text-[#18181B] text-3xl font-semibold mb-10">"${
+                  word.meaning ? word.meaning : "অর্থ পাওয়া যায়নি"
+                } /
+                    ${
+                      word.pronunciation
+                        ? word.pronunciation
+                        : "উচ্চারন পাওয়া যায়নি"
+                    }"
                 </p>
             </div>
             <div class="flex justify-between">
