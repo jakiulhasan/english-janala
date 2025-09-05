@@ -109,7 +109,12 @@ const displayWords = (words) => {
     return;
   }
 
-  wordsContainer.classList.add("grid", "grid-cols-3", "gap-5");
+  wordsContainer.classList.add(
+    "grid",
+    "md:grid-cols-3",
+    "grid-cols-1",
+    "gap-5"
+  );
   words.forEach((word) => {
     // console.log(word);
     const card = document.createElement("div");
