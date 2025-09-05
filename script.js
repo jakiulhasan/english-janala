@@ -8,6 +8,12 @@ const showLoading = (status) => {
   }
 };
 
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
+
 const showSynonym = (arr) => {
   const createHtml = arr.map((el) => `<span class="btn"> ${el} </span>`);
   return createHtml.join(" ");
@@ -18,8 +24,9 @@ const loadLessons = () => {
     .then((json) => displayLesson(json.data));
 };
 
-const removeActiveDesign = (btns) => {
-  btns.forEach((btn) => {
+const removeActiveDesign = () => {
+  const removeActive = document.querySelectorAll(".removeActive");
+  removeActive.forEach((btn) => {
     btn.classList.remove("active");
   });
 };
@@ -28,8 +35,7 @@ const loadLessonWord = (levelId) => {
   showLoading(true);
   const loadLessonWordUrl = `https://openapi.programming-hero.com/api/level/${levelId}`;
 
-  const removeActive = document.querySelectorAll(".removeActive");
-  removeActiveDesign(removeActive);
+  removeActiveDesign();
 
   const loadLessonBtn = document.getElementById(`loadLessonBtn-${levelId}`);
   loadLessonBtn.classList.add("active");
@@ -45,25 +51,7 @@ const showInfo = async (id) => {
   const details = await res.json();
   showModel(details.data);
 };
-// {
-// "status": true,
-// "message": "successfully fetched a word details",
-// "data": {
-// "word": "Eager",
-// "meaning": "আগ্রহী",
-// "pronunciation": "ইগার",
-// "level": 1,
-// "sentence": "The kids were eager to open their gifts.",
-// "points": 1,
-// "partsOfSpeech": "adjective",
-// "synonyms": [
-// "enthusiastic",
-// "excited",
-// "keen"
-// ],
-// "id": 5
-// }
-// }
+
 const showModel = (word) => {
   const modalContainer = document.getElementById("modal-container");
   modalContainer.innerHTML = `
@@ -139,7 +127,9 @@ const displayWords = (words) => {
               <button onclick="showInfo(${
                 word.id
               })" class="btn hover:bg-[#1a91ff80] bg-[#1a91ff1a]"><i class="fa-solid fa-circle-info text-xl"></i> </button>
-              <button class="btn hover:bg-[#1a91ff80] bg-[#1a91ff1a]"><i class="fa-solid fa-volume-high text-xl"></i></button>
+              <button onclick="pronounceWord('${
+                word.word
+              }')" class="btn hover:bg-[#1a91ff80] bg-[#1a91ff1a]"><i class="fa-solid fa-volume-high text-xl"></i></button>
             </div>
         </div>       
      `;
@@ -158,5 +148,23 @@ const displayLesson = (lessons) => {
     levelContainer.appendChild(levelItem);
   }
 };
+
+document.getElementById("search-btn").addEventListener("click", () => {
+  removeActiveDesign();
+  const searchValue = document
+    .getElementById("search-value")
+    .value.trim()
+    .toLowerCase();
+
+  fetch("https://openapi.programming-hero.com/api/words/all")
+    .then((res) => res.json())
+    .then((data) => {
+      const allWords = data.data;
+      const filterWords = allWords.filter((word) =>
+        word.word.toLowerCase().includes(searchValue)
+      );
+      displayWords(filterWords);
+    });
+});
 
 loadLessons();
