@@ -25,8 +25,59 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="text-3xl">
-    <h1>English Janala is Cooking</h1>
+<body>
+    <header>
+        <div class="navbar bg-[#badeff42] shadow-sm">
+            <div class="flex-1">
+                <a class="btn btn-ghost text-xl">
+                    <span class="text-xl font-semibold">English</span>
+                    <img src="./assets/logo.png" alt="">
+                    <span class="font-bangla text-xl">জানালা</span>
+                </a>
+            </div>
+            <div class="hidden flex-none md:block">
+                <ul class="menu menu-horizontal px-1 space-x-4">
+                    <button class="btn btn-outline btn-primary"><i class="fa-solid fa-circle-question"></i>FAQ</button>
+                    <button class="btn btn-outline btn-primary"><i class="fa-solid fa-book-open"></i>Learn</button>
+                    <button class="btn btn-outline btn-primary"><i
+                            class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button>
+                </ul>
+            </div>
+            <div class="dropdown dropdown-end md:hidden">
+                <div tabindex="0" role="button" class="btn m-1 bg-[#badeff42]"><i class="fa-solid fa-bars"></i></div>
+                <ul tabindex="0" class="dropdown-content menu bg-[#badeff42] rounded-box z-1 w-52 p-2 shadow-sm">
+                    <li><a><i class="fa-solid fa-circle-question"></i>FAQ</a></li>
+                    <li><a><i class="fa-solid fa-book-open"></i>Learn</a></li>
+                    <li><a><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</li>
+                </ul>
+            </div>
+    </header>
+    <section class="flex flex-col-reverse md:flex-row gap-7 justify-between items-center w-11/12 mx-auto py-7">
+        <div class="flex-1 text-center md:text-left">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-7"><span class="text-sky-500">English</span> is Easy!!
+            </h1>
+            <p class="font-bangla font-medium text-[#181818] text-xl md:text-2xl mb-6">আজ থেকেই আপনার ভাষা শেখার যাত্রা
+                শুরু
+                করুন।
+                আপনি
+                যদি নতুন
+                হন অথবা আপনার
+                দক্ষতা বাড়াতে
+                চান, আমাদের
+                Interactive Lessons আপনাকে নিয়ে যাবে অন্য একটি Level এ</p>
+            <form class="flex flex-col md:max-w-[50%] gap-3 text-[#18181b80]">
+                <input type="text" placeholder="Enter Your Name" class="p-3 rounded-sm">
+                <input type="password" class="p-3 rounded-sm" placeholder=" **********************">
+                <button class="btn btn-primary p-3 md:max-w-32">Get Started</button>
+            </form>
+        </div>
+
+
+        <div class="flex-1">
+            <img src="./assets/hero-student.png" alt="">
+        </div>
+
+    </section>
 </body>
 
 </html>
